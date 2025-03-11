@@ -1,0 +1,358 @@
+@import 'tailwindcss';
+
+:root {
+	/* Light mode colors (default) */
+	--color-bg: #ffffff;
+	--color-fg: #1a1a1a;
+	--color-accent: #3b82f6;
+	--color-surface: #f3f4f6;
+	--color-surface-accent: #e5e7eb;
+
+	/* Gray scale for text */
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+
+	/* SWOT analysis colors */
+	--color-green-100: #d1fae5;
+	--color-green-500: #10b981;
+	--color-green-700: #047857;
+	--color-red-100: #fee2e2;
+	--color-red-500: #ef4444;
+	--color-red-700: #b91c1c;
+	--color-blue-100: #dbeafe;
+	--color-blue-500: #3b82f6;
+	--color-blue-700: #1d4ed8;
+	--color-yellow-100: #fef3c7;
+	--color-yellow-500: #f59e0b;
+	--color-yellow-700: #b45309;
+}
+
+/* Dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-color-scheme='light']) {
+		--color-bg: #1a1a1a;
+		--color-fg: #f3f4f6;
+		--color-accent: #60a5fa;
+		--color-surface: #2a2a2a;
+		--color-surface-accent: #3a3a3a;
+
+		/* Gray scale for text in dark mode */
+		--color-gray-50: #111827;
+		--color-gray-100: #1f2937;
+		--color-gray-200: #374151;
+		--color-gray-300: #4b5563;
+		--color-gray-400: #6b7280;
+		--color-gray-500: #9ca3af;
+		--color-gray-600: #d1d5db;
+		--color-gray-700: #e5e7eb;
+		--color-gray-800: #f3f4f6;
+		--color-gray-900: #f9fafb;
+
+		/* SWOT analysis colors for dark mode */
+		--color-green-100: #064e3b;
+		--color-green-500: #10b981;
+		--color-green-700: #34d399;
+		--color-red-100: #7f1d1d;
+		--color-red-500: #ef4444;
+		--color-red-700: #fca5a5;
+		--color-blue-100: #1e3a8a;
+		--color-blue-500: #3b82f6;
+		--color-blue-700: #93c5fd;
+		--color-yellow-100: #78350f;
+		--color-yellow-500: #f59e0b;
+		--color-yellow-700: #fcd34d;
+	}
+}
+
+/* Dark mode based on user preference */
+:root[data-color-scheme='dark'] {
+	--color-bg: #1a1a1a;
+	--color-fg: #f3f4f6;
+	--color-accent: #60a5fa;
+	--color-surface: #2a2a2a;
+	--color-surface-accent: #3a3a3a;
+
+	/* Gray scale for text in dark mode */
+	--color-gray-50: #111827;
+	--color-gray-100: #1f2937;
+	--color-gray-200: #374151;
+	--color-gray-300: #4b5563;
+	--color-gray-400: #6b7280;
+	--color-gray-500: #9ca3af;
+	--color-gray-600: #d1d5db;
+	--color-gray-700: #e5e7eb;
+	--color-gray-800: #f3f4f6;
+	--color-gray-900: #f9fafb;
+
+	/* SWOT analysis colors for dark mode */
+	--color-green-100: #064e3b;
+	--color-green-500: #10b981;
+	--color-green-700: #34d399;
+	--color-red-100: #7f1d1d;
+	--color-red-500: #ef4444;
+	--color-red-700: #fca5a5;
+	--color-blue-100: #1e3a8a;
+	--color-blue-500: #3b82f6;
+	--color-blue-700: #93c5fd;
+	--color-yellow-100: #78350f;
+	--color-yellow-500: #f59e0b;
+	--color-yellow-700: #fcd34d;
+}
+
+/* Apply the variables to HTML elements */
+html {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+}
+
+/* Remove underlines from links by default */
+a {
+	text-decoration: none;
+}
+
+/* Add .underline class for links that should have underlines */
+a.underline,
+a.hover\:underline:hover {
+	text-decoration: underline;
+}
+
+/* Tailwind utility overrides to use theme variables */
+
+/* Background colors */
+.bg-white {
+	background-color: var(--color-bg) !important;
+}
+
+.bg-black {
+	background-color: var(--color-fg) !important;
+}
+
+.bg-gray-50 {
+	background-color: var(--color-surface) !important;
+}
+
+.bg-gray-100,
+.bg-gray-200 {
+	background-color: var(--color-surface-accent) !important;
+}
+
+/* Text colors */
+.text-black {
+	color: var(--color-fg) !important;
+}
+
+.text-white {
+	color: var(--color-bg) !important;
+}
+
+.text-gray-500 {
+	color: var(--color-gray-500) !important;
+}
+
+.text-gray-600 {
+	color: var(--color-gray-600) !important;
+}
+
+.text-gray-700 {
+	color: var(--color-gray-700) !important;
+}
+
+.text-gray-800 {
+	color: var(--color-gray-800) !important;
+}
+
+.text-gray-900 {
+	color: var(--color-gray-900) !important;
+}
+
+/* SWOT analysis colors */
+.text-green-500,
+.text-green-600 {
+	color: var(--color-green-500) !important;
+}
+
+.text-green-700 {
+	color: var(--color-green-700) !important;
+}
+
+.text-red-500,
+.text-red-600 {
+	color: var(--color-red-500) !important;
+}
+
+.text-red-700 {
+	color: var(--color-red-700) !important;
+}
+
+.text-blue-500,
+.text-blue-600 {
+	color: var(--color-blue-500) !important;
+}
+
+.text-blue-700 {
+	color: var(--color-blue-700) !important;
+}
+
+.text-yellow-500,
+.text-yellow-600 {
+	color: var(--color-yellow-500) !important;
+}
+
+.text-yellow-700 {
+	color: var(--color-yellow-700) !important;
+}
+
+/* Colored backgrounds */
+.bg-green-100 {
+	background-color: var(--color-green-100) !important;
+}
+
+.bg-red-100 {
+	background-color: var(--color-red-100) !important;
+}
+
+.bg-blue-100 {
+	background-color: var(--color-blue-100) !important;
+}
+
+.bg-yellow-100 {
+	background-color: var(--color-yellow-100) !important;
+}
+
+/* Border colors */
+.border-gray-200 {
+	border-color: var(--color-gray-300) !important;
+}
+
+.border-green-200 {
+	border-color: var(--color-green-100) !important;
+}
+
+.border-red-200 {
+	border-color: var(--color-red-100) !important;
+}
+
+.border-blue-200 {
+	border-color: var(--color-blue-100) !important;
+}
+
+.border-yellow-200 {
+	border-color: var(--color-yellow-100) !important;
+}
+
+/* Fix for tab navigation */
+.border-blue-500 {
+	border-color: var(--color-accent) !important;
+}
+
+.text-blue-600 {
+	color: var(--color-accent) !important;
+}
+
+/* Tab navigation hover states */
+.hover\:border-gray-300:hover {
+	border-color: var(--color-gray-300) !important;
+}
+
+.hover\:text-gray-700:hover {
+	color: var(--color-gray-700) !important;
+}
+
+/* Fix to ensure tab buttons retain their styling */
+button.border-b-2.px-1.py-4 {
+	padding: 1rem 0.25rem;
+}
+
+button.whitespace-nowrap {
+	white-space: nowrap;
+}
+
+/* Surface colors */
+.bg-surface {
+	background-color: var(--color-surface) !important;
+}
+
+.bg-surface-accent {
+	background-color: var(--color-surface-accent) !important;
+}
+
+/* Card, input, and other component backgrounds */
+.card,
+[class*='card-'],
+input,
+textarea,
+select,
+button:not([class*='bg-']):not(.border-b-2) {
+	background-color: var(--color-surface);
+	color: var(--color-fg);
+}
+
+/* Fix for tables with alternating colors */
+.bg-gray-50,
+thead.bg-gray-50,
+tbody.bg-white,
+tr.bg-white,
+div.bg-gray-50 {
+	background-color: var(--color-surface) !important;
+}
+
+/* Fix for collapsibles and FAQ items */
+.divide-gray-200 > * {
+	border-color: var(--color-gray-300) !important;
+}
+
+/* Fix for hover states */
+.hover\:bg-gray-50:hover {
+	background-color: var(--color-surface-accent) !important;
+}
+
+/* Component-specific fixes */
+
+/* Metric cards and other panels */
+.rounded-lg.border.border-gray-200.bg-white,
+.rounded-lg.border.border-gray-200.bg-white.p-5,
+.rounded-lg.border.border-gray-200.bg-white.p-4,
+.rounded-lg.border.border-gray-200.bg-white.p-6,
+.rounded-lg.border.border-gray-200.bg-white.shadow-sm,
+.overflow-hidden.rounded-lg.border.border-gray-200.bg-white.shadow-sm {
+	background-color: var(--color-surface) !important;
+}
+
+/* Fix for metric card text */
+.rounded-lg.border.border-gray-200.bg-white .text-gray-900,
+.rounded-lg.border.border-gray-200.bg-white.p-5 .text-gray-900,
+.rounded-lg.border.border-gray-200.bg-white.p-4 .text-gray-900,
+.rounded-lg.border.border-gray-200.bg-white.p-6 .text-gray-900 {
+	color: var(--color-gray-900) !important;
+}
+
+/* Table cells */
+td.text-gray-500,
+th.text-gray-500 {
+	color: var(--color-gray-500) !important;
+}
+
+/* Whitespace in tables */
+.whitespace-nowrap.text-gray-500 {
+	color: var(--color-gray-500) !important;
+}
+
+/* Bold text that might be using gray-900 */
+.font-bold.text-gray-900,
+.text-2xl.font-bold.text-gray-900,
+.font-medium.whitespace-nowrap {
+	color: var(--color-gray-900) !important;
+}
+
+/* SvelteKit body container */
+.sveltekit-body-container {
+	display: contents;
+}

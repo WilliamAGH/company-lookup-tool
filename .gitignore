@@ -1,0 +1,32 @@
+test-results
+node_modules
+.qodo
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# Temporary files
+tmp-*
+*.tmp
+temp-*
+.temp/
+.tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

@@ -1,0 +1,51 @@
+{
+	/**
+	 * MASTER TYPESCRIPT CONFIGURATION
+	 *
+	 * This is the authoritative source of truth for:
+	 * - Which files are included in TypeScript processing
+	 * - TypeScript compiler options
+	 * - Type checking settings
+	 *
+	 * Other configuration files should defer to this file and avoid
+	 * duplicating settings defined here.
+	 *
+	 * IMPORTANT PATH ALIAS CONFIGURATION:
+	 * - DO NOT define path aliases (paths) in this file (e.g., $src, $lib, etc.)
+	 * - Path aliases MUST be defined in svelte.config.js using kit.alias
+	 * - SvelteKit generates its own tsconfig.json that can be interfered with by manual path configurations
+	 * - See: https://svelte.dev/docs/kit/configuration#alias
+	 */
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "bundler",
+		"target": "ES2022",
+		"module": "ESNext",
+		"types": ["vite/client", "@sveltejs/kit"],
+		"ignoreDeprecations": "5.0"
+	},
+	"include": [
+		".svelte-kit/*",
+		"src/**/*.d.ts",
+		"src/**/*.ts",
+		"src/**/*.js",
+		"src/**/*.svelte",
+		"*.config.ts",
+		"*.config.js",
+		"data-tools/**/*.ts",
+		"data-tools/**/*.js",
+		"data-tools/**/*.json",
+		"e2e/**/*.ts",
+		"e2e/**/*.js",
+		"e2e/**/*.svelte"
+	],
+	"exclude": ["drizzle/*", "node_modules/*", "node_modules/**/*"]
+}

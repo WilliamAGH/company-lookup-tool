@@ -1,0 +1,105 @@
+/**
+ * VS Code Editor & Linting Configuration
+ *
+ * CONFIGURATION HIERARCHY & SOURCES OF TRUTH:
+ * ------------------------------------------
+ * 1. TypeScript: tsconfig.json is the source of truth
+ *    - VS Code reads this file for types, includes/excludes
+ *    - Svelte plugin reads this via svelte.config.js
+ *    - ESLint reads this for TypeScript rules
+ *
+ * 2. ESLint: eslint.config.js is the source of truth
+ *    - VS Code ESLint extension reads this file
+ *    - eslint.config.js inherits .gitignore patterns
+ *
+ * 3. Svelte: svelte.config.js is the source of truth
+ *    - VS Code Svelte extension reads this file
+ *    - TypeScript integration defined here
+ *
+ * 4. VS Code UI/UX: settings.json is the source of truth
+ *    - File visibility, editor behavior, formatting
+ *    - Some settings must be duplicated here for VS Code to work
+ */
+{
+	/**
+	 * EDITOR FORMATTING (VS Code specific)
+	 * Source of truth: settings.json only
+	 * These control VS Code behavior, not used by external tools
+	 */
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
+	"[css]": {
+		"editor.suggest.insertMode": "replace"
+	},
+
+	/**
+	 * CSS SETTINGS (VS Code specific)
+	 * Source of truth: settings.json only
+	 * Not used by external tools
+	 */
+	"css.validate": true,
+	"css.lint.unknownAtRules": "ignore",
+
+	/**
+	 * TYPESCRIPT SETTINGS (Partial overlap with tsconfig.json)
+	 * Source of truth:
+	 * - tsconfig.json for compiler options, includes/excludes
+	 * - settings.json for VS Code-specific TS server settings
+	 *
+	 * This setting tells VS Code which TS version to use (required)
+	 */
+	"typescript.tsdk": "node_modules/typescript/lib",
+
+	/**
+	 * ESLINT INTEGRATION (Partial overlap with eslint.config.js)
+	 * Source of truth:
+	 * - eslint.config.js for rules, parser options, etc.
+	 * - settings.json for VS Code extension behavior
+	 *
+	 * This setting is required to use the new flat config format
+	 */
+	"eslint.useFlatConfig": true,
+
+	/**
+	 * VS CODE FILE SYSTEM (VS Code specific)
+	 * Source of truth: settings.json only
+	 *
+	 * While similar patterns exist in tsconfig.json and .gitignore,
+	 * these control VS Code UI visibility and search behavior,
+	 * serving a different purpose than compilation or version control
+	 */
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/.svelte-kit": true
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/drizzle": true
+	},
+
+	/**
+	 * SVELTE PLUGIN SETTINGS (Partial overlap with svelte.config.js)
+	 * Source of truth:
+	 * - svelte.config.js for preprocessing, extensions, etc.
+	 * - settings.json for VS Code extension behavior
+	 *
+	 * These two settings are required for TypeScript integration and CSS
+	 */
+	"svelte.enable-ts-plugin": true,
+	"svelte.plugin.css.globals": "src/app.css",
+
+	/**
+	 * JSON FILES WITH COMMENTS (JSONC) SUPPORT
+	 * Treat configuration files as JSONC to allow comments and trailing commas in VS Code
+	 * Note: While Bun supports JSONC natively, other tools may not
+	 */
+	"files.associations": {
+		"package.json": "jsonc",
+		"tsconfig.json": "jsonc",
+		"jsconfig.json": "jsonc",
+		".vscode/*.json": "jsonc"
+	}
+}
