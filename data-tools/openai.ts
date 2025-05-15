@@ -460,8 +460,8 @@ export async function callOpenAIWithSchema<T>({
 		validateFn
 	} = options;
 
-	// Validate the provider is one we support
-	const validProvider = Object.keys(providers).includes(provider) ? provider : 'direct';
+import { providers } from '../src/lib/utils/openaiApi';
+import { debugLog } from '../src/lib/utils/openaiApi';
 
 	try {
 		// Create function tool with schema
