@@ -479,8 +479,8 @@ import { debugLog } from '../src/lib/utils/openaiApi';
 		// For OpenRouter, enhance the messages with schema
 		let enhancedMessages = messages;
 		if (validProvider === 'openrouter') {
-			enhancedMessages = enhanceMessageWithSchema(messages, schema);
-		}
+-import { debugLog } from '../src/lib/utils/openaiApi';
++import { debugLog, enhanceMessageWithSchema } from '../src/lib/utils/openaiApi';
 
 		// Configure API call parameters
 		const extendedParams = {
