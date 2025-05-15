@@ -498,11 +498,9 @@ import { debugLog } from '../src/lib/utils/openaiApi';
 		};
 
 		// Make the API call
-		const { response, cost } = await callOpenAI(extendedParams, {
-			provider: validProvider,
-			apiKey,
-			debug
-		});
+// at the top of data-tools/openai.ts
+-import { debugLog } from '../src/lib/utils/openaiApi';
++import { debugLog, callOpenAI } from '../src/lib/utils/openaiApi';
 
 		// Extract JSON from response
 - import { debugLog, callOpenAI } from '../src/lib/utils/openaiApi';
