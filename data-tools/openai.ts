@@ -505,7 +505,8 @@ import { debugLog } from '../src/lib/utils/openaiApi';
 		});
 
 		// Extract JSON from response
-		const parsedData = extractJSONFromLLMResponse(response, debug);
+- import { debugLog, callOpenAI } from '../src/lib/utils/openaiApi';
++ import { debugLog, callOpenAI, extractJSONFromLLMResponse } from '../src/lib/utils/openaiApi';
 
 		// Apply validation if needed
 		if (validateFn && !skipValidation && parsedData) {
