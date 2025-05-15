@@ -107,7 +107,8 @@ async function analyzeCompany(
 		const analysisData = await processCompanyAnalysis(companyName, {
 			debug: enableDebug,
 			provider,
-			strategy: useMultiStep ? 'multi' : 'single'
+			strategy: useMultiStep ? 'multi' : 'single',
+			tool_choice: { type: 'function' }
 		});
 
 		// Print the analysis in a formatted way (CLI-specific functionality)

@@ -420,3 +420,106 @@ Keep your response brief and structured according to the function schema.`
 		};
 	}
 }
+
+/**
+ * Function to call OpenAI with a JSON schema for structured responses
+ */
+export async function callOpenAIWithSchema<T>({
+	messages,
+	schema,
+	functionName,
+	options = {}
+}: {
+	messages: ChatCompletionMessageParam[];
+	schema: Record<string, unknown>;
+	functionName: string;
+	options?: {
+		model?: string;
+		provider?: string;
+		apiKey?: string;
+		temperature?: number;
+		debug?: boolean;
+		skipValidation?: boolean;
+		validateFn?: (data: unknown) => { isValid: boolean; errors?: string[] };
+	};
+}): Promise<{
+	data: T;
+	cost: { totalTokens: number; costUSD: number };
+}> {
+	const {
+		model = typeof process !== 'undefined' && process.env?.LLM_MODEL
+			? process.env.LLM_MODEL
+			: 'chatgpt-4o-latest',
+		provider = typeof process !== 'undefined' && process.env?.LLM_PROVIDER
+			? process.env.LLM_PROVIDER
+			: 'direct',
+		apiKey,
+		temperature = 0,
+		debug = typeof process !== 'undefined' && process.env?.DEBUG === 'true',
+		skipValidation = false,
+		validateFn
+	} = options;
+
+	// Validate the provider is one we support
+	const validProvider = Object.keys(providers).includes(provider) ? provider : 'direct';
+
+	try {
+		// Create function tool with schema
+		const functionTool = {
+			type: 'function' as const,
+			function: {
+				name: functionName,
+				description: `Generate structured data for ${functionName}`,
+				parameters: schema
+			}
+		};
+
+		// For OpenRouter, enhance the messages with schema
+		let enhancedMessages = messages;
+		if (validProvider === 'openrouter') {
+			enhancedMessages = enhanceMessageWithSchema(messages, schema);
+		}
+
+		// Configure API call parameters
+		const extendedParams = {
+			model,
+			messages: enhancedMessages,
+			// Include tools for direct OpenAI calls
+			...(validProvider !== 'openrouter'
+				? {
+						tools: [functionTool],
+						tool_choice: { type: 'function', function: { name: functionName } }
+					}
+				: {}),
+			temperature,
+			response_format: { type: 'json_object' }
+		};
+
+		// Make the API call
+		const { response, cost } = await callOpenAI(extendedParams, {
+			provider: validProvider,
+			apiKey,
+			debug
+		});
+
+		// Extract JSON from response
+		const parsedData = extractJSONFromLLMResponse(response, debug);
+
+		// Apply validation if needed
+		if (validateFn && !skipValidation && parsedData) {
+			const validationResult = validateFn(parsedData);
+			if (!validationResult.isValid) {
+				debugLog(
+					`Validation issues found: ${validationResult.errors?.join(', ')}`,
+					undefined,
+					debug
+				);
+			}
+		}
+
+		return { data: parsedData as T, cost };
+	} catch (error) {
+		console.error(`Error in callOpenAIWithSchema:`, error);
+		throw error;
+	}
+}
