@@ -424,7 +424,7 @@ Keep your response brief and structured according to the function schema.`
 /**
  * Function to call OpenAI with a JSON schema for structured responses
  */
-export async function callOpenAIWithSchema<T>({
+export async function callOpenAIWithJSONSchema<T>({
 	messages,
 	schema,
 	functionName,
@@ -446,6 +446,8 @@ export async function callOpenAIWithSchema<T>({
 	data: T;
 	cost: { totalTokens: number; costUSD: number };
 }> {
+    // …rest of implementation…
+}
 	const {
 		model = typeof process !== 'undefined' && process.env?.LLM_MODEL
 			? process.env.LLM_MODEL
