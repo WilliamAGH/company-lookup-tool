@@ -503,8 +503,21 @@ import { debugLog } from '../src/lib/utils/openaiApi';
 +import { debugLog, callOpenAI } from '../src/lib/utils/openaiApi';
 
 		// Extract JSON from response
-- import { debugLog, callOpenAI } from '../src/lib/utils/openaiApi';
-+ import { debugLog, callOpenAI, extractJSONFromLLMResponse } from '../src/lib/utils/openaiApi';
+// ------------------------------------
+// At the very top of data-tools/openai.ts
+// ------------------------------------
+import {
+  debugLog,
+  callOpenAIWithSchema,
+  callOpenAI,
+  enhanceMessageWithSchema,
+  extractJSONFromLLMResponse,
+  providers,
+} from '../src/lib/utils/openaiApi';
+
+import type { ChatCompletionMessageParam } from 'openai';
+
+// ... rest of your code ...
 
 		// Apply validation if needed
 		if (validateFn && !skipValidation && parsedData) {
